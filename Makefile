@@ -15,7 +15,7 @@ dry-run: ## make dry-run playbook=setup # Run a playbook in dry run mode
 	ansible-playbook -i $(env) --diff --check $(opts) $(playbook).yml
 
 run: ## make run playbook=setup # Run a playbook
-	ansible-playbook -i $(env) $(opts) $(playbook).yml
+	ansible-playbook -i $(env) --diff $(opts) $(playbook).yml
 
 list: ## make list # List hosts inventory
 	cat hosts
