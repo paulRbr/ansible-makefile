@@ -2,6 +2,12 @@
 
 # ########################
 # Output your vault passphrase within this script
+#
+# You should have one script per inventory. E.g.:
+# - For integration/hosts inventory,
+#     pass-integration.sh
+# - For production/hosts inventory,
+#     pass-production.sh
 # ########################
 #
 # Recommended approach is to use a password manager:

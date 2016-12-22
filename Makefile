@@ -1,6 +1,6 @@
 playbook ?= setup
-opts     ?= $(args) --vault-password-file=pass.sh
-env      ?= integration
+env      ?= hosts
+opts     ?= $(args) --vault-password-file=pass-$(env).sh
 
 install: ## make install # Install roles dependencies
 	ansible-galaxy install --roles-path vendor/ -r requirements.yml
@@ -18,14 +18,24 @@ run: ## make run playbook=setup # Run a playbook
 	ansible-playbook -i $(env) --diff $(opts) $(playbook).yml
 
 list: ## make list # List hosts inventory
-	cat hosts
+	[ -f $(env) ] && cat $(env) || \
+	[ -f $(env)/hosts ] && cat $(env)/hosts
+
+vault: mandatory-file-param ## make vault file=/tmp/vault.yml # Edit or create a vaulted file
+	[ -f $(file) ] && ansible-vault $(opts) edit $(file) || \
+	ansible-vault $(opts) create $(file)
+
+console: ## make console # Run an ansible console
+	ansible-console -i $(env) $(opts)
 
 mandatory-host-param:
 	[ ! -z $(host) ]
+mandatory-file-param:
+	[ ! -z $(file) ]
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .DEFAULT_GOAL := help
 
-.PHONY: install lint run dry-run debug list mandatory-host-param
+.PHONY: install lint run dry-run debug list vault console mandatory-host-param mandatory-file-param
