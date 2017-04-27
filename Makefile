@@ -28,6 +28,13 @@ vault: mandatory-file-param ## make vault file=/tmp/vault.yml # Edit or create a
 console: ## make console # Run an ansible console
 	ansible-console -i $(env) $(opts)
 
+group ?=all
+facts: ## make facts group=all # Gather facts from your hosts
+	ansible -m setup -i $(env) $(opts) --tree out/ $(group)
+
+inventory-report: ## make inventory-report #
+	ansible-cmdb out/ > list-servers.html
+
 mandatory-host-param:
 	[ ! -z $(host) ]
 mandatory-file-param:
@@ -38,4 +45,4 @@ help:
 
 .DEFAULT_GOAL := help
 
-.PHONY: install lint run dry-run debug list vault console mandatory-host-param mandatory-file-param
+.PHONY: install lint run dry-run debug list vault console facts inventory-report mandatory-host-param mandatory-file-param
