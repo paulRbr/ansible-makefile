@@ -1,6 +1,17 @@
 playbook ?= setup
 env      ?= hosts
 opts     ?= $(args) --vault-password-file=pass-$(env).sh
+ifeq ("$(wildcard pass-$(env).sh)", "")
+  opts   ?= $(args)
+else
+  opts   ?= $(args) --vault-password-file=pass-$(env).sh
+endif
+ifneq ("$(limit)", "")
+  opts   := $(opts) --limit $(limit)
+endif
+ifneq ("$(tag)", "")
+  opts   := $(opts) --tag $(tag)
+endif
 
 install: ## make install # Install roles dependencies
 	ansible-galaxy install --roles-path vendor/ -r requirements.yml
