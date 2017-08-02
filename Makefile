@@ -22,10 +22,10 @@ lint: ## make lint playbook=setup # Check syntax of a playbook
 debug: mandatory-host-param ## make debug host=myhost # Debug a host's variable
 	ansible -i $(env) $(opts) -m debug -a "var=hostvars[inventory_hostname]" $(host)
 
-dry-run: ## make dry-run playbook=setup # Run a playbook in dry run mode
+dry-run: ## make dry-run [playbook=setup] [env=integration] [tag=<ansible tag>] [limit=<ansible host limit>] [args=<ansible arguments>] # Run a playbook in dry run mode
 	ansible-playbook -i $(env) --diff --check $(opts) $(playbook).yml
 
-run: ## make run playbook=setup # Run a playbook
+run: ## make run [playbook=setup] [env=integration] [tag=<ansible tag>] [limit=<ansible host limit>] [args=<ansible arguments>] # Run a playbook
 	ansible-playbook -i $(env) --diff $(opts) $(playbook).yml
 
 list: ## make list # List hosts inventory
