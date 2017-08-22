@@ -57,6 +57,13 @@ mandatory-host-param:
 mandatory-file-param:
 	@[ ! -z $(file) ]
 
+.PHONY: bootstrap
+bootstrap: ## make bootstrap # Install ansible (Ubuntu only)
+	sudo apt-get install -y software-properties-common && \
+	sudo apt-add-repository ppa:ansible/ansible && \
+	sudo apt-get update && \
+	sudo apt-get install -y ansible
+
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
