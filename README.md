@@ -33,7 +33,7 @@ This is the list of variables that can be passed to `run`, `dry-run` and `consol
 
 | Name    | Default | Description | Example |
 | ------- | ------- | ----------- | ------- |
-|`env`    | `hosts` | Name of the inventory you want to use | If you have an inventory file in `production/hosts` you will be able to `make run env=production` |
+| `env`   | `hosts` | Name of the inventory you want to use | If you have an inventory file in `production/hosts` you will be able to `make run env=production` |
 | `limit` | -       | Limit the command to a subset of hosts with ansible's limit argument | `make dry-run limit=database` |
 | `tag`   | -       | Specify a list of tags for your ansible run | `make dry-run tag=ssh` |
 | `args`  | -       | Add ansible understandable arguments | `make dry-run args='--user=root'` |
