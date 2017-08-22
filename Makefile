@@ -10,7 +10,7 @@ endif
 
 .PHONY: install
 install: ## make install # Install roles dependencies
-	@ansible-galaxy install --roles-path="vendor/" --role-file="requirements.yml"
+	@ansible-galaxy install --roles-path="roles/" --role-file="requirements.yml"
 
 .PHONY: lint
 lint: ## make lint playbook=setup # Check syntax of a playbook
