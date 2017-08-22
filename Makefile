@@ -47,8 +47,8 @@ group ?=all
 facts: ## make facts group=all # Gather facts from your hosts
 	@env=$(env) ansible --module-name="setup" --inventory-file="$(env)" $(opts) --tree="out/" $(group)
 
-.PHONY: inventory-report
-inventory-report: ## make inventory-report #
+.PHONY: cmdb
+cmdb: ## make cmdb # Create HTML inventory report
 	@ansible-cmdb "out/" > list-servers.html
 
 .PHONY: mandatory-host-param mandatory-file-param
