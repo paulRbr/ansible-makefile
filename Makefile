@@ -59,7 +59,7 @@ mandatory-file-param:
 
 .PHONY: bootstrap
 bootstrap: ## make bootstrap # Install ansible (Ubuntu only)
-	apt-get install -y software-properties-common && \
+	@apt-get install -y software-properties-common && \
 	apt-add-repository ppa:ansible/ansible && \
 	apt-get update && \
 	apt-get install -y ansible
