@@ -52,18 +52,18 @@ facts: ## make facts group=all # Gather facts from your hosts
 cmdb: ## make cmdb # Create HTML inventory report
 	@ansible-cmdb "out/" > list-servers.html
 
-.PHONY: mandatory-host-param mandatory-file-param
-mandatory-host-param:
-	@[ ! -z $(host) ]
-mandatory-file-param:
-	@[ ! -z $(file) ]
-
 .PHONY: bootstrap
 bootstrap: ## make bootstrap # Install ansible (Ubuntu only)
 	@apt-get install -y software-properties-common && \
 	apt-add-repository ppa:ansible/ansible && \
 	apt-get update && \
 	apt-get install -y ansible
+
+.PHONY: mandatory-host-param mandatory-file-param
+mandatory-host-param:
+	@[ ! -z $(host) ]
+mandatory-file-param:
+	@[ ! -z $(file) ]
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
