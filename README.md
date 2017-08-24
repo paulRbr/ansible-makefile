@@ -32,6 +32,7 @@ vault                          make vault file=/tmp/vault.yml [env=hosts] [args=
 
 This is the explanation of variables that can be passed to commands:
 
+
 | Name      | Default | Description | Example |
 | --------- | ------- | ----------- | ------- |
 | `playbook`|`setup`  | Name of the playbook yaml file without the .yml extension | make dry-run playbook=starfish |
