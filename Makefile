@@ -1,16 +1,17 @@
-playbook ?= setup
-env      ?= hosts
-opts     ?= $(args) --vault-password-file=pass.sh
+playbook   ?= setup
+roles_path ?= "roles/"
+env        ?= hosts
+opts       ?= $(args) --vault-password-file=pass.sh
 ifneq ("$(limit)", "")
-  opts   := $(opts) --limit $(limit)
+  opts     := $(opts) --limit $(limit)
 endif
 ifneq ("$(tag)", "")
-  opts   := $(opts) --tag $(tag)
+  opts     := $(opts) --tag $(tag)
 endif
 
 .PHONY: install
-install: ## make install # Install roles dependencies
-	@ansible-galaxy install --roles-path="roles/" --role-file="requirements.yml"
+install: ## make install [roles_path=roles/] # Install roles dependencies
+	@ansible-galaxy install --roles-path="$(roles_path)" --role-file="requirements.yml"
 
 .PHONY: lint
 lint: ## make lint playbook=setup # Check syntax of a playbook
