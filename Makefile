@@ -1,14 +1,24 @@
+##
+# VARIABLES
+##
 playbook   ?= setup
 roles_path ?= "roles/"
 env        ?= hosts
-opts       ?= $(args) --vault-password-file=pass.sh
 ifneq ("$(limit)", "")
   opts     := $(opts) --limit $(limit)
 endif
 ifneq ("$(tag)", "")
   opts     := $(opts) --tag $(tag)
 endif
+ifeq ("$(wildcard pass.sh)", "")
+  opts   ?= $(args)
+else # Handle vault password if any
+  opts   ?= $(args) --vault-password-file=pass.sh
+endif
 
+##
+# TASKS
+##
 .PHONY: install
 install: ## make install [roles_path=roles/] # Install roles dependencies
 	@ansible-galaxy install --roles-path="$(roles_path)" --role-file="requirements.yml"
