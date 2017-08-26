@@ -9,6 +9,16 @@ This repository provides a Makefile to give you a simple interface for Ansible.
 - Easier adoption for people that are not used to Ansible
 - Document common usage
 
+## Installation
+
+Simply download the `Makefile` in your ansible configuration directory.
+
+    wget -O Makefile https://raw.githubusercontent.com/paulRbr/ansible-makefile/master/Makefile
+
+If you also want to use [`pass`](https://www.passwordstore.org/) as your vault password manager you will need to download the `pass.sh` file too.
+
+    wget -O pass.sh https://raw.githubusercontent.com/paulRbr/ansible-makefile/master/pass.sh
+
 ## Commands
 
 This is the list of commands made available
