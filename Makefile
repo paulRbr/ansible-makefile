@@ -4,16 +4,16 @@
 playbook   ?= setup
 roles_path ?= "roles/"
 env        ?= hosts
+ifeq ("$(wildcard pass.sh)", "")
+  opts     ?= $(args)
+else # Handle vault password if any
+  opts     ?= $(args) --vault-password-file=pass.sh
+endif
 ifneq ("$(limit)", "")
   opts     := $(opts) --limit $(limit)
 endif
 ifneq ("$(tag)", "")
   opts     := $(opts) --tag $(tag)
-endif
-ifeq ("$(wildcard pass.sh)", "")
-  opts   ?= $(args)
-else # Handle vault password if any
-  opts   ?= $(args) --vault-password-file=pass.sh
 endif
 
 ##
