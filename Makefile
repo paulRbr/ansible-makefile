@@ -10,10 +10,10 @@ else # Handle vault password if any
   opts     ?= $(args) --vault-password-file=pass.sh
 endif
 ifneq ("$(limit)", "")
-  opts     := $(opts) --limit $(limit)
+  opts     := $(opts) --limit="$(limit)"
 endif
 ifneq ("$(tag)", "")
-  opts     := $(opts) --tag $(tag)
+  opts     := $(opts) --tag="$(tag)"
 endif
 
 ##
