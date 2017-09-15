@@ -29,6 +29,7 @@ lint: ## make lint [playbook=setup] [env=hosts] [args=<ansible-playbook argument
 
 .PHONY: debug
 debug: mandatory-host-param ## make debug host=hostname [env=hosts] [args=<ansible arguments>] # Debug a host's variable
+	@env=$(env) ansible -i $(env) $(opts) -m setup $(host)
 	@env=$(env) ansible --inventory-file="$(env)" $(opts) --module-name="debug" --args="var=hostvars[inventory_hostname]" $(host)
 
 .PHONY: dry-run
