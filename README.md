@@ -1,5 +1,7 @@
 # Makefile for Ansible users
 
+[![Docker Hub](https://img.shields.io/docker/automated/swcc/ansible-makefile.svg)](https://hub.docker.com/r/swcc/ansible-makefile/)
+
 This repository provides a Makefile to give you a simple interface for Ansible.
 
 ## Why?
