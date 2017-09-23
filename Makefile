@@ -7,7 +7,11 @@ env        ?= hosts
 ifeq ("$(wildcard pass.sh)", "")
   opts     ?= $(args)
 else # Handle vault password if any
-  opts     ?= $(args) --vault-password-file=pass.sh
+  ifeq ("$(shell ./pass.sh 2> /dev/null)", "")
+    opts     ?= $(args)
+  else
+    opts     ?= $(args) --vault-password-file=pass.sh
+  endif
 endif
 ifneq ("$(limit)", "")
   opts     := $(opts) --limit="$(limit)"
