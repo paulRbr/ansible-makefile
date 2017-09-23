@@ -40,10 +40,10 @@ dry-run: ## make dry-run [playbook=setup] [env=hosts] [tag=<ansible tag>] [limit
 run: ## make run [playbook=setup] [env=hosts] [tag=<ansible tag>] [limit=<ansible host limit>] [args=<ansible-playbook arguments>] # Run a playbook
 	@env=$(env) ansible-playbook --inventory-file="$(env)" --diff $(opts) "$(playbook).yml"
 
+group ?=all
 .PHONY: list
-list: ## make list [env=hosts] # List hosts inventory
-	@[ -f "$(env)" ] && cat "$(env)" || \
-	[ -f "$(env)/hosts" ] && cat "$(env)/hosts"
+list: ## make list [group=all] [env=hosts] # List hosts inventory
+	@env=$(env) ansible --inventory-file="$(env)" $(group) --list-hosts
 
 .PHONY: vault
 vault: mandatory-file-param ## make vault file=/tmp/vault.yml [env=hosts] [args=<ansible-vault arguments>] # Edit or create a vaulted file
@@ -56,7 +56,7 @@ console: ## make console [env=hosts] [args=<ansible-console arguments>] # Run an
 
 group ?=all
 .PHONY: facts
-facts: ## make facts group=all [env=hosts] [args=<ansible arguments>] # Gather facts from your hosts
+facts: ## make facts [group=all] [env=hosts] [args=<ansible arguments>] # Gather facts from your hosts
 	@env=$(env) ansible --module-name="setup" --inventory-file="$(env)" $(opts) --tree="out/" $(group)
 
 .PHONY: cmdb
