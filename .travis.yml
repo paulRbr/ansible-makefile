@@ -14,14 +14,12 @@ jobs:
     - ansible --version
     script:
     - ./test.sh
-  - stage: package
+  - stage: "package:deploy"
     install:
     - gem install fpm
     script:
     - fpm -s dir -x providers -x .git -t deb -n ansible-make -v $(cat VERSION) ansible-make=/usr/local/bin/
       Makefile=/opt/ansible/ pass.sh=/opt/ansible/
-  - stage: deploy
-    script: skip
     deploy:
       provider: releases
       api_key:
