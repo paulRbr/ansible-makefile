@@ -1,21 +1,34 @@
 ---
 language: python
-python: "2.7"
-
-# Use the new container infrastructure
+python: '2.7'
 sudo: false
-
 addons:
   apt:
     packages:
       - python-pip
-
-install:
-  # Install ansible
-  - pip install ansible
-  # Check ansible version
-  - ansible --version
-
-script:
-  # Basic setup.yml run
-  - make run
+jobs:
+  include:
+  - stage: test
+    install:
+    - pip install ansible
+    - ansible --version
+    script:
+    - ./test.sh
+  - stage: package
+    install:
+    - gem install fpm
+    script:
+    - fpm -s dir -x providers -x .git -t deb -n ansible-make -v $(cat VERSION) ansible-make=/usr/local/bin/
+      Makefile=/opt/ansible/ pass.sh=/opt/ansible/
+  - stage: deploy
+    script: skip
+    deploy:
+      provider: releases
+      api_key:
+        secure: Y7xWkqDw6QoEXWntKSoS8DmHuhbbzfn5GrpOBtEoz40C46dloVj+DK70HdgfMG71bI9aSgVs3e7mzzlN0bvO87boMasfqgcXnS7mWEP6xRG8tiATIYePFpW/3uiTAaWH2AClIRRs4IY14/8PFdbZebUYILTWsccAT9dlG9+s8ahjBT0pCeG2W4vr+YAKQYJ2GGdR81mH15nacgUqonwE/4WEy7Cqnv2NeJU3pL6jFi9YQtOHUMrDhkazwLZKsbefaG0uE5awmd7lsl4eVlEtPlJoMh4JZk4+wugt+TiDGhPGFw2mJ5/IPhTMuaIb6EQroGTzMx71jIIPpWnKMxdHPAf/nUkNBFdM5FtGAhAilXmIxLhPkvOEoKx3RaG2s9WSwiAJ0cf+YFc/vIHb3UU85EtV74UdjuMBtf8QZ6SQ7B2L060naRwQyFrizaA9+c2g6Y33NggosnUKAGFGJqtmu+869KslX213GNq921ICyvjoh1uRSHZDP6dDH81f33BnyOnY7vo3ghMMAFOqgRai5RkX5Uav849zi+NodIYiz1mz125wCbSf9My4Okzrx1GwT4haF5SSK2c5vBR9IC7rhG5gP9y6STsgDVMQTFxh581WTG/LHlr2DAxa/6FczYvYwSpduvCxf+zSe/wXyo1rTcJadm/qX4RYvp+dp0Km540=
+      file_glob: true
+      file: ansible-make_*_amd64.deb
+      skip_cleanup: true
+      on:
+        repo: paulRbr/ansible-makefile
+        tags: true
