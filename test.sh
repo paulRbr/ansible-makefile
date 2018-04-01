@@ -11,5 +11,5 @@ diff <(echo "$readme_help") <(echo "$make_help") || (printf "\033[31mFAILED!\033
 printf "\033[32mOK\033[0m\n"
 
 echo "Checking version..."
-[ "$(git grep $(cat VERSION) | wc -l)" -eq 2 ] || (printf "\033[31mFAILED!\033[0m\n" && exit 1)
+[ "$(git grep $(cat VERSION) | wc -l)" -eq 3 ] || (printf "\033[31mFAILED!\033[0m\n" && exit 1)
 printf "\033[32mOK\033[0m\n"
