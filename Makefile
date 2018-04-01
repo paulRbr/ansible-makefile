@@ -47,6 +47,12 @@ endif
 install: ## make install [roles_path=roles/] # Install roles dependencies
 	@ansible-galaxy install --roles-path="$(roles_path)" --role-file="requirements.yml"
 
+.PHONY: inventory
+inventory: ## make inventory [provider=<ec2|gce...>] [env=hosts] # Download dynamic inventory from Ansible's contrib
+	@wget https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/$(provider).py
+	@chmod +x $(provider).py
+	mv $(provider).py $(env)
+
 .PHONY: lint
 lint: ## make lint [playbook=setup] [env=hosts] [args=<ansible-playbook arguments>] # Check syntax of a playbook
 	@env=$(env) ansible-playbook --inventory-file="$(env)" --syntax-check $(opts) "$(playbook).yml"
