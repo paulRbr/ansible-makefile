@@ -32,10 +32,10 @@ cmdb                           make cmdb # Create HTML inventory report
 console                        make console [env=hosts] [args=<ansible-console arguments>] # Run an ansible console
 debug                          make debug host=hostname [env=hosts] [args=<ansible arguments>] # Debug a host's variable
 dry-run                        make dry-run [playbook=setup] [env=hosts] [tag=<ansible tag>] [limit=<ansible host limit>] [args=<ansible-playbook arguments>] # Run a playbook in dry run mode
-facts                          make facts group=all [env=hosts] [args=<ansible arguments>] # Gather facts from your hosts
+facts                          make facts [group=all] [env=hosts] [args=<ansible arguments>] # Gather facts from your hosts
 install                        make install [roles_path=roles/] # Install roles dependencies
 lint                           make lint [playbook=setup] [env=hosts] [args=<ansible-playbook arguments>] # Check syntax of a playbook
-list                           make list [env=hosts] # List hosts inventory
+list                           make list [group=all] [env=hosts] # List hosts inventory
 run                            make run [playbook=setup] [env=hosts] [tag=<ansible tag>] [limit=<ansible host limit>] [args=<ansible-playbook arguments>] # Run a playbook
 vault                          make vault file=/tmp/vault.yml [env=hosts] [args=<ansible-vault arguments>] # Edit or create a vaulted file
 ~~~
