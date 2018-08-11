@@ -24,13 +24,14 @@
 playbook   ?= setup
 roles_path ?= "roles/"
 env        ?= hosts
-ifeq ("$(wildcard pass.sh)", "")
+mkfile_dir ?= $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+ifeq ("$(wildcard $(mkfile_dir)pass.sh)", "")
   opts     ?= $(args)
 else # Handle vault password if any
-  ifeq ("$(shell ./pass.sh 2> /dev/null)", "")
+  ifeq ("$(shell $(mkfile_dir)pass.sh 2> /dev/null)", "")
     opts     ?= $(args)
   else
-    opts     ?= $(args) --vault-password-file=pass.sh
+    opts     ?= $(args) --vault-password-file=$(mkfile_dir)pass.sh
   endif
 endif
 ifneq ("$(limit)", "")
