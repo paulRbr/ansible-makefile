@@ -18,6 +18,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+SHELL:=/bin/bash
+
 ##
 # VARIABLES
 ##
@@ -46,13 +48,17 @@ endif
 ##
 .PHONY: install
 install: ## make install [roles_path=roles/] # Install roles dependencies
-	@ansible-galaxy install --roles-path="$(roles_path)" --role-file="requirements.yml"
+	@ansible-galaxy install --roles-path="$(roles_path)" --role-file="requirements.yml" $(args)
 
-.PHONY: inventory
-inventory: ## make inventory [provider=<ec2|gce...>] [env=hosts] # Download dynamic inventory from Ansible's contrib
+.PHONY: fetch-inventory
+fetch-inventory: ## make fetch-inventory [provider=<ec2|gce...>] [env=hosts] # Download dynamic inventory from Ansible's contrib
 	@wget https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/$(provider).py
 	@chmod +x $(provider).py
 	mv $(provider).py $(env)
+
+.PHONY: inventory
+inventory: ## make inventory [env=hosts] # Display the inventory as seen from Ansible
+	@env=$(env) ansible-inventory --graph -i $(env) $(opts)
 
 .PHONY: lint
 lint: ## make lint [playbook=setup] [env=hosts] [args=<ansible-playbook arguments>] # Check syntax of a playbook
