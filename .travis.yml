@@ -5,7 +5,7 @@ sudo: false
 addons:
   apt:
     packages:
-      - python-pip
+    - python-pip
 jobs:
   include:
   - stage: test
@@ -13,8 +13,8 @@ jobs:
     - pip install ansible
     - ansible --version
     script:
-    - ./test.sh
-  - stage: "package:deploy"
+    - "./test.sh"
+  - stage: package:deploy
     install:
     - gem install fpm
     script:
@@ -23,7 +23,7 @@ jobs:
     deploy:
       provider: releases
       api_key:
-        secure: Y7xWkqDw6QoEXWntKSoS8DmHuhbbzfn5GrpOBtEoz40C46dloVj+DK70HdgfMG71bI9aSgVs3e7mzzlN0bvO87boMasfqgcXnS7mWEP6xRG8tiATIYePFpW/3uiTAaWH2AClIRRs4IY14/8PFdbZebUYILTWsccAT9dlG9+s8ahjBT0pCeG2W4vr+YAKQYJ2GGdR81mH15nacgUqonwE/4WEy7Cqnv2NeJU3pL6jFi9YQtOHUMrDhkazwLZKsbefaG0uE5awmd7lsl4eVlEtPlJoMh4JZk4+wugt+TiDGhPGFw2mJ5/IPhTMuaIb6EQroGTzMx71jIIPpWnKMxdHPAf/nUkNBFdM5FtGAhAilXmIxLhPkvOEoKx3RaG2s9WSwiAJ0cf+YFc/vIHb3UU85EtV74UdjuMBtf8QZ6SQ7B2L060naRwQyFrizaA9+c2g6Y33NggosnUKAGFGJqtmu+869KslX213GNq921ICyvjoh1uRSHZDP6dDH81f33BnyOnY7vo3ghMMAFOqgRai5RkX5Uav849zi+NodIYiz1mz125wCbSf9My4Okzrx1GwT4haF5SSK2c5vBR9IC7rhG5gP9y6STsgDVMQTFxh581WTG/LHlr2DAxa/6FczYvYwSpduvCxf+zSe/wXyo1rTcJadm/qX4RYvp+dp0Km540=
+        secure: jl+DNWPR1ig3n6yBVkW3rWXm5VqVZVQSHiibPv9KHUXsmZKoNrTK7EKx4mOaqWvRWFTgmlq+EaAsy+ue/yS0dL5Bk0swRCn0lcRBHt5rBMyJ72tLV1V1vXg24n8kcEAi2J4C0KSnTOFqtwf4KMHyDv5BlGUkpX/eMuTukOZbfbdqHBMO2k++vWIIWmvMa+ZlykYqj1YGtRvDnhSVSPI5kRPxFiENZif3u1AH2r6SCQX2Hz/2mkltaNqoa99LjS4ARI8ykHyx+NBjJqD3s31NhsNNow/mKCXr29oNZECEnBSfIum414A1WzmzQ92EOc/AdB3cQQCdwR+VmbtejtETWK050oSD/Bl/i3ixnR/TusbYB+M0yjxvr1ugnMoCI6wZmH8qdYLmytQRzOZ12V8jrvfNRJ5M3kHjQSBOFRli2pclokurm8cjraf+BVeaeDJ/CMGNgBAQpw8OGOTcYCWnkIXwIicis0/agggaQG4IzDfXC5SDSUH+2wpeiNppjVoU7O6p4lJwnyLq36+2jPo9xIj7FnqPv2wTGMgYQjHSADfnzZJfNvJp5bH4ylNNzmZWbCo8tf4j2LFnj+6DvYrsWyMZk0PwUYJirOI43s1jETtwb+U1r57D5ugbz0MM0GjFyewIADvXQtMgoWH0jQjvx28+6zJN8SwOMcwXJAPe8P8=
       file_glob: true
       file: ansible-make_*_amd64.deb
       skip_cleanup: true
