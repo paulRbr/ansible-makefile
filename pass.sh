@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -e
+
+env=${env:-}
 
 # ########################
 #
@@ -17,7 +21,15 @@
 #
 # ########################
 
-if [ $(which pass) ];
+if (command -v pass)
 then
-    pass ansible-vault/$env
+    existingVault=$(pass "ansible-vault/${env}" || true)
+
+    if [ -n "${existingVault}" ]
+    then
+        echo "${existingVault}"
+    else
+        >&2 echo "Defaulting to an random vault pass. Don't trust it if you are using vaulted variables!"
+        echo "invalid_vault_pass"
+    fi
 fi
