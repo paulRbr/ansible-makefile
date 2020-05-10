@@ -27,8 +27,10 @@ then
 
     if [ -n "${existingVault}" ]
     then
+        >&2 echo "Using passphrase found at 'ansible-vault/${env}' in your password store."
         echo "${existingVault}"
     else
+        >&2 echo "No passphrase found at 'ansible-vault/${env}' in your password store."
         >&2 echo "Defaulting to an random vault pass. Don't trust it if you are using vaulted variables!"
         echo "invalid_vault_pass"
     fi
