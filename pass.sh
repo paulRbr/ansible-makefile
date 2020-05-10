@@ -21,7 +21,7 @@ env=${env:-}
 #
 # ########################
 
-if (command -v pass)
+if (command -v pass >/dev/null 2>&1)
 then
     existingVault=$(pass "ansible-vault/${env}" || true)
 
