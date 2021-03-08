@@ -1,5 +1,5 @@
 # ------------------
-# ANSIBLE-MAKEFILE v0.15.0
+# ANSIBLE-MAKEFILE v0.16.0
 # Run ansible commands with ease
 # ------------------
 #
@@ -48,7 +48,7 @@ endif
 ##
 .PHONY: install
 install: ## make install [roles_path=roles/] # Install roles dependencies
-	@ansible-galaxy install --roles-path="$(roles_path)" --role-file="requirements.yml" $(args)
+	@ansible-galaxy install --ignore-errors --roles-path="$(roles_path)" --role-file="requirements.yml" $(opts)
 
 .PHONY: fetch-inventory
 fetch-inventory: ## make fetch-inventory [provider=<ec2|gce...>] [env=hosts] # Download dynamic inventory from Ansible's contrib
@@ -57,8 +57,15 @@ fetch-inventory: ## make fetch-inventory [provider=<ec2|gce...>] [env=hosts] # D
 	mv $(provider).py $(env)
 
 .PHONY: inventory
-inventory: ## make inventory [env=hosts] # Display the inventory as seen from Ansible
+inventory: inventory-graph ## make inventory [env=hosts] # LEGACY replaced by inventory-graph
+
+.PHONY: inventory-graph
+inventory-graph: ## make inventory-graph [env=hosts] # Display the inventory as seen from Ansible
 	@env=$(env) ansible-inventory --graph -i $(env) $(opts)
+
+.PHONY: inventory-list
+inventory-list: ## make inventory-list [env=hosts] # Display the inventory as seen from Ansible
+	@env=$(env) ansible-inventory --list -i $(env) $(opts)
 
 .PHONY: lint
 lint: ## make lint [playbook=setup] [env=hosts] [args=<ansible-playbook arguments>] # Check syntax of a playbook
