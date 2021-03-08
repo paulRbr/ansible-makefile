@@ -84,8 +84,8 @@ list: ## make list [group=all] [env=hosts] # List hosts inventory
 
 .PHONY: vault
 vault: mandatory-file-param ## make vault file=/tmp/vault.yml [env=hosts] [args=<ansible-vault arguments>] # Edit or create a vaulted file
-	@[ -f "$(file)" ] && env=$(env) ansible-vault $(opts) edit "$(file)" || \
-	env=$(env) ansible-vault $(opts) create "$(file)"
+	@[ -f "$(file)" ] && env=$(env) ansible-vault edit $(opts) "$(file)" || \
+	env=$(env) ansible-vault create $(opts) "$(file)"
 
 .PHONY: console
 console: ## make console [env=hosts] [args=<ansible-console arguments>] # Run an ansible console
