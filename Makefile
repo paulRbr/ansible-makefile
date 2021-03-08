@@ -1,5 +1,5 @@
 # ------------------
-# ANSIBLE-MAKEFILE v0.15.0
+# ANSIBLE-MAKEFILE v0.16.0
 # Run ansible commands with ease
 # ------------------
 #
