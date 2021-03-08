@@ -35,7 +35,9 @@ dry-run                        make dry-run [playbook=setup] [env=hosts] [tag=<a
 facts                          make facts [group=all] [env=hosts] [args=<ansible arguments>] # Gather facts from your hosts
 fetch-inventory                make fetch-inventory [provider=<ec2|gce...>] [env=hosts] # Download dynamic inventory from Ansible's contrib
 install                        make install [roles_path=roles/] # Install roles dependencies
-inventory                      make inventory [env=hosts] # Display the inventory as seen from Ansible
+inventory-graph                make inventory-graph [env=hosts] # Display the inventory as seen from Ansible
+inventory                      make inventory [env=hosts] # LEGACY replaced by inventory-graph
+inventory-list                 make inventory-list [env=hosts] # Display the inventory as seen from Ansible
 lint                           make lint [playbook=setup] [env=hosts] [args=<ansible-playbook arguments>] # Check syntax of a playbook
 list                           make list [group=all] [env=hosts] # List hosts inventory
 run                            make run [playbook=setup] [env=hosts] [tag=<ansible tag>] [limit=<ansible host limit>] [args=<ansible-playbook arguments>] # Run a playbook
